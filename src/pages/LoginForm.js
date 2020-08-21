@@ -6,15 +6,13 @@ import {
     FormControl,
     FormLabel,
     Input,
-    InputGroup,
-    InputRightElement,
-    Icon,
     Button,
     CircularProgress,
     Text
 } from '@chakra-ui/core';
-import { userLogin } from '../utils/mockApi'
-import ErrorMessage from '../components/ErrorMessage'
+import { userLogin } from '../utils/mockApi';
+import ErrorMessage from '../components/ErrorMessage';
+import Password from '../components/Password';
 
 
 export default function LoginForm() {
@@ -75,22 +73,7 @@ export default function LoginForm() {
                                             onChange={event => setEmail(event.currentTarget.value)}
                                         />
                                     </FormControl>
-                                    <FormControl isRequired mt={6}>
-                                        <FormLabel>Password</FormLabel>
-                                        <InputGroup>
-                                            <Input
-                                                type={showPassword ? 'text' : 'password'}
-                                                placeholder="*******"
-                                                size="lg"
-                                                onChange={event => setPassword(event.currentTarget.value)}
-                                            />
-                                            <InputRightElement width="3rem">
-                                                <Button h="1.5rem" size="sm" onClick={handlePasswordVisibility}>
-                                                    {showPassword ? <Icon name="view-off" /> : <Icon name="view" />}
-                                                </Button>
-                                            </InputRightElement>
-                                        </InputGroup>
-                                    </FormControl>
+                                    <Password showPassword={showPassword} setPassword={setPassword} handlePasswordVisibility={handlePasswordVisibility}/ >
                                     <Button
                                         width="full"
                                         type="submit"
