@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import {
     Flex,
     Box,
-    Heading,
-    Button,
-    CircularProgress
+    Heading
 } from '@chakra-ui/core';
 import { userLogin } from '../utils/mockApi';
 import ErrorMessage from '../components/ErrorMessage';
 import Email from '../components/Email';
 import Password from '../components/Password';
+import Submit from '../components/Submit';
 import PostLogin from '../components/PostLogin';
 
 
@@ -69,19 +68,7 @@ export default function LoginForm() {
                                     {loginContext.error && <ErrorMessage message={loginContext.error} />}
                                     <Email setContext={setLoginContext} />
                                     <Password formContext={loginContext} setContext={setLoginContext} />
-                                    <Button
-                                        width="full"
-                                        type="submit"
-                                        variantColor="teal"
-                                        variant="outline"
-                                        mt={4}
-                                    >
-                                        {loginContext.isLoading ? (
-                                            <CircularProgress isIndeterminate size="24px" color="teal" />
-                                        ) : (
-                                                'Sign In'
-                                            )}
-                                    </Button>
+                                    <Submit formContext={loginContext} />
                                 </form>
                             </Box>
                         </>
