@@ -3,16 +3,14 @@ import {
     Flex,
     Box,
     Heading,
-    FormControl,
-    FormLabel,
-    Input,
     Button,
-    CircularProgress,
-    Text
+    CircularProgress
 } from '@chakra-ui/core';
 import { userLogin } from '../utils/mockApi';
 import ErrorMessage from '../components/ErrorMessage';
+import Email from '../components/Email';
 import Password from '../components/Password';
+import PostLogin from '../components/PostLogin';
 
 
 export default function LoginForm() {
@@ -24,12 +22,7 @@ export default function LoginForm() {
         isLoading: false,
         isLoggedIn: false
     });
-    const setEmail = email => setLoginContext(prevState => {
-        return {
-            ...prevState,
-            email: email
-        };
-    });
+
     const handleSubmit = event => {
         event.preventDefault();
         setLoginContext(prevState => {
@@ -64,25 +57,7 @@ export default function LoginForm() {
     return (
         <Flex width="full" align="center" justifyContent="center">
             <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg">
-                {loginContext.isLoggedIn ? (
-                    <Box textAlign="center">
-                        <Text>{loginContext.email} logged in!</Text>
-                        <Button
-                            variantColor="orange"
-                            variant="outline"
-                            width="full"
-                            mt={4}
-                            onClick={() =>  setLoginContext(prevState => {
-                                return {
-                                    ...prevState,
-                                    isLoggedIn: false,
-                                };
-                            })}
-                        >
-                            Sign out
-            </Button>
-                    </Box>
-                ) : (
+                {loginContext.isLoggedIn ? <PostLogin formContext={loginContext} setContext={setLoginContext} /> : (
                         <>
                             <Box p={2}>
                                 <Box textAlign="center">
@@ -92,15 +67,7 @@ export default function LoginForm() {
                             <Box my={4} textAlign="left">
                                 <form onSubmit={handleSubmit}>
                                     {loginContext.error && <ErrorMessage message={loginContext.error} />}
-                                    <FormControl isRequired>
-                                        <FormLabel>Email</FormLabel>
-                                        <Input
-                                            type="email"
-                                            placeholder="test@test.com"
-                                            size="lg"
-                                            onChange={event => setEmail(event.currentTarget.value)}
-                                        />
-                                    </FormControl>
+                                    <Email setContext={setLoginContext} />
                                     <Password formContext={loginContext} setContext={setLoginContext} />
                                     <Button
                                         width="full"
